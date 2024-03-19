@@ -22,6 +22,7 @@
   "homepage": "https://github.com/YulenkaW/BudgetPilot#readme",
   "dependencies": {
     "express": "^4.18.3",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-native": "^0.73.6"
   }
 }
