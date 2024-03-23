@@ -7,16 +7,18 @@ import { ExpensesProvider } from './components/ExpensesContext.jsx';
 function App() {
     return (
         <div className="App">
-            <header className="App-header">
-                {/* Render the BudgetInput */}
-                <BudgetInput />
-                <ExpensesProvider>
-                    <h1>Enter Expenses</h1>
-                    <AddExpense /> 
-                    <ExpenseList />
-                </ExpensesProvider>
-            </header>
+            <div style={{margin: '10px 0px 0px 30px'}} >
+                <header className="App-header">
+                    {/* Render the BudgetInput */}
+                    <BudgetInput />
+                    <ExpensesProvider>
+                        <AddExpense /> 
+                        <ExpenseList />
+                    </ExpensesProvider>
+                </header>
+            </div>
         </div>
+
     );
 }
 
