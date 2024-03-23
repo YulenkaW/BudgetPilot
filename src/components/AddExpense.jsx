@@ -7,6 +7,7 @@ export default function AddExpense({ onAddExpense }) {
   const dispatch = useExpensesDispatch();
   return (
     <>
+      <h2>Enter Expenses</h2>
       <input
         placeholder="Add expense"
         value={text}
