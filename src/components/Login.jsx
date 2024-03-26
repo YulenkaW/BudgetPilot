@@ -18,7 +18,6 @@ function Login({ onLogin }) {
       return;
     }
   
-    // If all validations pass, proceed with login
     onLogin();
   };
 
@@ -47,7 +46,6 @@ function Login({ onLogin }) {
       return;
     }
 
-    // If all validations pass, proceed with registration
     setIsNewUser(false);
   };
 
