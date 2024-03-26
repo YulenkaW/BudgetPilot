@@ -8,16 +8,13 @@ function Login({ onLogin }) {
   const [isNewUser, setIsNewUser] = useState(false);
 
   const handleLogin = () => {
-    // Validate username
-    if (!username.trim()) {
+    // Validate username and password
+    if (!username.trim() || !password.trim()) {
+      alert('Username and password cannot be empty');
       return;
     }
-    
-    // Validate password
-    if (!password.trim()) {
-      return;
-    }
-  
+
+    // If all validations pass, proceed with login
     onLogin();
   };
 
@@ -26,26 +23,26 @@ function Login({ onLogin }) {
 
     // Validate name
     if (!name.trim()) {
+      alert('Name cannot be empty');
       return;
     }
 
     // Validate salary
     if (!salary.trim()) {
+      alert('Salary cannot be empty');
       return;
     } else if (!/^\d+$/.test(salary.trim())) {
+      alert('Salary must be a numerical value');
       return;
     }
 
-    // Validate username
-    if (!username.trim()) {
+    // Validate username and password
+    if (!username.trim() || !password.trim()) {
+      alert('Username and password cannot be empty');
       return;
     }
 
-    // Validate password
-    if (!password.trim()) {
-      return;
-    }
-
+    // If all validations pass, proceed with registration
     setIsNewUser(false);
   };
 
