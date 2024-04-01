@@ -31,3 +31,24 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+a:link {
+  color: rgb(1, 167, 1);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:visited {
+  color: rgb(132, 0, 255);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(96, 255, 96);
+  background-color: transparent;
+  text-decoration: none;
+}
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
