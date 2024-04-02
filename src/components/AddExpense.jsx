@@ -15,6 +15,7 @@ export default function AddExpense({ onAddExpense }) {
       <input
         placeholder="Expense amount"
         value={text1}
+        type="number"
         onChange={f => setText1(f.target.value)}
       />
       <button onClick={() => {
@@ -30,4 +31,4 @@ export default function AddExpense({ onAddExpense }) {
   );
 }
 
-let nextId = 3;
+let nextId = 0;
