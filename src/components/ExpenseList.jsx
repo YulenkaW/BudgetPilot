@@ -1,8 +1,16 @@
+// ExpenseList.jsx
+
 import { useState, useContext } from 'react';
 import { useExpenses, useExpensesDispatch } from './ExpensesContext.jsx';
 
 export default function ExpenseList() {
   const expenses = useExpenses();
+
+  // Check if expenses data is null or undefined
+  if (!expenses) {
+    return <p>No expenses found.</p>;
+  }
+
   return (
     <ul>
       {expenses.map(expense => (

@@ -37,17 +37,29 @@ function App() {
               </div>
               <Routes>
                 <Route path="/budget-input" element={<BudgetInput />} />
-                <Route path="/add-expense" element={<AddExpense />} />
                 <Route path="/financial-tip" element={<FinancialTipPage />} />
+                <Route path="/add-expense" element={<AddExpenseWithProvider />} />
               </Routes>
-              <ExpensesProvider>
-                <ExpenseList />
-              </ExpensesProvider>
+              {loggedIn && (
+                <ExpensesProvider>
+                  <ExpenseList />
+                </ExpensesProvider>
+              )}
             </>
           )}
         </header>
       </div>
     </Router>
+  );
+}
+
+// Create a separate component to wrap AddExpense with ExpensesProvider
+function AddExpenseWithProvider() {
+  return (
+    <ExpensesProvider>
+      <AddExpense />
+      <ExpenseList />
+    </ExpensesProvider>
   );
 }
 
