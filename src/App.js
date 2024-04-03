@@ -37,6 +37,10 @@ function App() {
               </div>
               <Routes>
                 <Route path="/budget-input" element={<BudgetInput />} />
+                <Route path="/add-expense" element={<ExpensesProvider>
+                                                      <AddExpense />
+                                                      <ExpenseList />
+                                                    </ExpensesProvider>} />
                 <Route path="/financial-tip" element={<FinancialTipPage />} />
                 <Route path="/add-expense" element={<AddExpenseWithProvider />} />
               </Routes>

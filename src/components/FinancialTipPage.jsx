@@ -14,6 +14,7 @@ function FinancialTipPage() {
           <li>Build an emergency fund to cover unexpected expenses.</li>
           <li>Pay off high-interest debt as soon as possible.</li>
           <li>Invest in your financial education and stay informed about personal finance topics.</li>
+          <li>The UNFCU recommends that you use <a href="https://www.unfcu.org/financial-wellness/50-30-20-rule" target="_blank">50% of your budget for needs, 30% for wants, and 20% for savings.</a></li>
         </ul>
       </div>
       <div>
