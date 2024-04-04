@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function BudgetInput() {
     // store the budget amount
     const [budget, setBudget] = useState(0);
-
-    
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
     const handleBudgetChange = (e) => {
         setBudget(e.target.value);
     };
@@ -12,7 +13,9 @@ function BudgetInput() {
     //Form submission
     const handleSubmit = (e) => {
         e.preventDefault(); // protection
-        alert(`Budget set to: $${budget}`); // simple alert for now
+        alert(`Budget set to: $${budget}`); // simple alert for now\
+        sessionStorage.setItem("budget", budget);
+        forceUpdate();
     };
 
     return (
@@ -29,7 +32,7 @@ function BudgetInput() {
                 />
                 <button type="submit">Set Budget</button>
             </form>
-            <p>Your current budget is: ${budget}</p>
+            <p>Your current budget is: ${sessionStorage.getItem("budget")}</p>
         </div>
     );
 }
