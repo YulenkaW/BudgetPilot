@@ -7,6 +7,8 @@ import ExpenseList from './components/ExpenseList.jsx';
 import { ExpensesProvider } from './components/ExpensesContext.jsx';
 import Login from './components/Login.jsx';
 import FinancialTipPage from './components/FinancialTipPage.jsx';
+//import ExpenseSummary from './components/ExpenseSummary.jsx';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
