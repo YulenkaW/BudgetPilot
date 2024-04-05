@@ -3,10 +3,14 @@ import { createContext, useContext, useReducer } from 'react';
 const ExpensesContext = createContext(null);
 const ExpensesDispatchContext = createContext(null);
 
+let expenseList = []
+expenseList[expenseList.length] = { id: 0, text: "Sample expense", cost: 0, done: true };
+sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
+
 export function ExpensesProvider({ children }) {
   const [expenses, dispatch] = useReducer(
     expensesReducer,
-    initialExpenses
+    JSON.parse(sessionStorage.getItem("initialExpenses"))
   );
 
   return (
@@ -31,9 +35,11 @@ export function useExpensesDispatch() {
 function expensesReducer(expenses, action) {
   switch (action.type) {
     case 'added': {
+      sessionStorage.setItem("budget", sessionStorage.getItem("budget") - action.cost/2);
       return [...expenses, {
         id: action.id,
         text: action.text,
+        cost: action.cost,
         done: false
       }];
     }
@@ -55,4 +61,5 @@ function expensesReducer(expenses, action) {
   }
 }
 
-const initialExpenses = [];
+//const initialExpenses = sessionStorage.getItem("initialExpenses")
+//initialExpenses[initialExpenses.length] = {  };

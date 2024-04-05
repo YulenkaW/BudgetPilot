@@ -23,10 +23,11 @@ export default function ExpenseList() {
 }
 
 function Expense({ expense }) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingText, setIsEditingText] = useState(false);
+  const [isEditingCost, setIsEditingCost] = useState(false);
   const dispatch = useExpensesDispatch();
   let expenseContent;
-  if (isEditing) {
+  if (isEditingText) {
     expenseContent = (
       <>
         <input
@@ -36,11 +37,43 @@ function Expense({ expense }) {
               type: 'changed',
               expense: {
                 ...expense,
-                text: e.target.value
+                text: e.target.value,
               }
             });
           }} />
-        <button onClick={() => setIsEditing(false)}>
+        <button onClick={() => setIsEditingText(false)}>
+          Save
+        </button>
+      </>
+    );
+  } else if (isEditingCost) {
+    let originalCost = parseFloat(sessionStorage.getItem(expense.text))
+    expenseContent = (
+      <>
+        <input
+          value={expense.cost}
+          onChange={e => {
+            dispatch({
+              type: 'changed',
+              expense: {
+                ...expense,
+                cost: e.target.value,
+              }
+            });
+          }} />
+        {expenseContent}
+        <button onClick={() => {
+          sessionStorage.setItem("budget", parseFloat(sessionStorage.getItem("budget")) + (originalCost) - (parseFloat(expense.cost)));
+          let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
+          for (let x in expenseList) {
+              if (expenseList[x]["id"] == expense.id) {
+                expenseList[x]["cost"] = expense.cost;
+                break;
+              }
+          }
+          sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
+          setIsEditingCost(false)
+        }}>
           Save
         </button>
       </>
@@ -49,7 +82,11 @@ function Expense({ expense }) {
     expenseContent = (
       <>
         {expense.text}
-        <button onClick={() => setIsEditing(true)}>
+        <button onClick={() => setIsEditingText(true)}>
+          Edit
+        </button>
+        {expense.cost}
+        <button onClick={() => setIsEditingCost(true)}>
           Edit
         </button>
       </>
@@ -72,6 +109,15 @@ function Expense({ expense }) {
       />
       {expenseContent}
       <button onClick={() => {
+        sessionStorage.setItem("budget", parseFloat(sessionStorage.getItem("budget")) + parseFloat(expense.cost));
+        let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
+        for (let x in expenseList) {
+            if (expenseList[x]["id"] == expense.id) {
+              expenseList.splice(x,1);
+              break;
+            }
+        }
+        sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
         dispatch({
           type: 'deleted',
           id: expense.id
