@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 
-
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -54,15 +53,15 @@ public User registerUser(@RequestBody User user) {
                 .orElse(ResponseEntity.notFound().build());
     }
       //delete user
-     @DeleteMapping("/{id}")
-     public ResponseEntity<?> deleteUser(@PathVariable String id) {
-       return userRepository.findById(id)
-            .map(user -> {
-                userRepository.delete(user);
-                return ResponseEntity.ok().build();
-            })
-            .orElse(ResponseEntity.notFound().build());
-    }
+      @DeleteMapping("/{id}")
+      public ResponseEntity<?> deleteUser(@PathVariable String id) {
+          return userRepository.findById(id)
+                  .map(user -> {
+                      userRepository.delete(user);
+                      return ResponseEntity.ok().build();
+                  })
+                  .orElse(ResponseEntity.notFound().build());
+      }
 
 }
 

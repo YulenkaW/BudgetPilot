@@ -16,7 +16,7 @@ public class User {
     private String id;
     private String name;
     private String email;
-    private String password; // Store encrypted passwords only
+    private String password; 
 
 
     // Include additional fields like family members if needed

@@ -1,12 +1,20 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Expense;
-import com.example.demo.repository.ExpenseRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.example.demo.model.Expense;
+import com.example.demo.repository.ExpenseRepository;
 
 @RestController
 @RequestMapping("/api/expenses")
@@ -27,7 +35,7 @@ public class ExpenseController {
         return expenseRepository.findAll();
     }
 
-    // Get Expenses by Budget
+    //Get Expenses by Budget
     @GetMapping("/budget/{budgetId}")
     public List<Expense> getExpensesByBudget(@PathVariable String budgetId) {
         return expenseRepository.findByBudgetId(budgetId);
