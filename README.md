@@ -1,6 +1,6 @@
 URL to connect to fetch api or axios api to interact with REST api :
 
-http://localhost:8080/api/expenses
+http://localhost:3000/api/expenses
 
 Example json object body to use for POST :
 
