@@ -8,18 +8,9 @@ function BudgetInput() {
     
     useEffect(() => {
         handleGetBudget();
-        //fetchBudget();
+      
     }, [budget]);
-    /*const fetchBudget = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/api/budget');
-            const data = await response;
-            console.log('budget', data, response)
-            setBudget(data);
-        } catch (error) {
-            console.error('Error fetching budgets:', error);
-        }
-    };*/
+    
 
     const handleGetBudget = () => {
         const data = getBudget;
@@ -31,9 +22,9 @@ function BudgetInput() {
 
     //Form submission
     const handleSubmit = (e) => {
-        e.preventDefault(); // protection
+        e.preventDefault(); 
         alert(`Budget set to: $${budget}`); // simple alert for now
-        //postData('http://localhost:3000/api/budget',  budget ) - fetch 
+        
         postBudget('http://localhost:3000/api/budget', budget)
     };
     
