@@ -1,3 +1,17 @@
+URL to connect to fetch api or axios api to interact with REST api :
+
+http://localhost:8080/api/expenses
+
+Example json object body to use for POST :
+
+{"userId": "1234", "Description": "test des", "category": "test cat", "amount": 12, "budgetId": "12" }
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
