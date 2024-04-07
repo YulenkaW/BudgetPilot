@@ -11,14 +11,21 @@ public class Expense  {
 
     @Id
     private String id;
-    private String userId; // To link an expense to a user
+    private String userId; 
     private String Description;
-    private String category; // For expense categorization
+    private String category; 
     private double amount;
     private LocalDate date;
+    private String budgetId;
 
 
 
+    public String getBudgetId() {
+        return budgetId;
+    }
+    public void setBudgetId(String budgetId) {
+        this.budgetId = budgetId;
+    }
     public String getId() {
         return id;
     }
