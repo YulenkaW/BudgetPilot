@@ -1,8 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import ReactDOM from 'react-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+    <ToastContainer /> {/* Add ToastContainer here */}
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

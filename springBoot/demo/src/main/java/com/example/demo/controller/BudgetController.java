@@ -1,11 +1,21 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Budget;
-import com.example.demo.repository.BudgetRepository;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Budget;
+import com.example.demo.repository.BudgetRepository;
 
 
 
@@ -16,9 +26,11 @@ public class BudgetController {
     @Autowired
     private BudgetRepository budgetRepository;
 
-    @PostMapping
-    public Budget createBudget(@RequestBody Budget budget) {
-        return budgetRepository.save(budget);
+    
+    @GetMapping
+    public ResponseEntity<List<Budget>> getAllBudgets() {
+        List<Budget> budgets = budgetRepository.findAll();
+        return ResponseEntity.ok(budgets);
     }
 
     // method to get a specific budget by ID
@@ -28,6 +40,13 @@ public class BudgetController {
                 .map(budget -> ResponseEntity.ok().body(budget)) // If found, return 200 OK with the budget
                 .orElse(ResponseEntity.notFound().build()); // If not found, return 404 Not Found
     }
+
+    @PostMapping
+    public ResponseEntity<Budget> createBudget(@RequestBody Budget budget) {
+        Budget savedBudget = budgetRepository.save(budget);
+        return new ResponseEntity<>(savedBudget, HttpStatus.CREATED);
+    }
+    
  //method to update existing budget 
     @PutMapping("/{id}")
     public ResponseEntity<Budget> updateBudget(@PathVariable String id, @RequestBody Budget updatedBudget) {
@@ -51,5 +70,6 @@ public class BudgetController {
         }
     }
 
+    
 
 }
