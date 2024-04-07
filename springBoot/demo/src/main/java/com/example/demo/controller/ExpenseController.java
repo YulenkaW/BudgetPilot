@@ -35,7 +35,7 @@ public class ExpenseController {
         return expenseRepository.findAll();
     }
 
-    //Get Expenses by Budget
+    //Get Expenses by Budget optional
     @GetMapping("/budget/{budgetId}")
     public List<Expense> getExpensesByBudget(@PathVariable String budgetId) {
         return expenseRepository.findByBudgetId(budgetId);
