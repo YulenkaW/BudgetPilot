@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { getBudget, postBudget } from './helpers/apiHelpers';
 
 function BudgetInput() {
     // store the budget amount
     const [budget, setBudget] = useState(0);
-    const [, updateState] = React.useState();
-    const forceUpdate = React.useCallback(() => updateState({}), []);
+
+    
+    useEffect(() => {
+        handleGetBudget();
+        //fetchBudget();
+    }, [budget]);
+    /*const fetchBudget = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/budget');
+            const data = await response;
+            console.log('budget', data, response)
+            setBudget(data);
+        } catch (error) {
+            console.error('Error fetching budgets:', error);
+        }
+    };*/
+
+    const handleGetBudget = () => {
+        const data = getBudget;
+        setBudget(data)
+    }
     const handleBudgetChange = (e) => {
         setBudget(e.target.value);
     };
@@ -13,10 +32,11 @@ function BudgetInput() {
     //Form submission
     const handleSubmit = (e) => {
         e.preventDefault(); // protection
-        alert(`Budget set to: $${budget}`); // simple alert for now\
-        sessionStorage.setItem("budget", budget);
-        forceUpdate();
+        alert(`Budget set to: $${budget}`); // simple alert for now
+        //postData('http://localhost:3000/api/budget',  budget ) - fetch 
+        postBudget('http://localhost:3000/api/budget', budget)
     };
+    
 
     return (
         <div>
@@ -32,7 +52,7 @@ function BudgetInput() {
                 />
                 <button type="submit">Set Budget</button>
             </form>
-            <p>Your current budget is: ${sessionStorage.getItem("budget")}</p>
+            <p>Your current budget is: ${budget}</p>
         </div>
     );
 }
