@@ -1,24 +1,49 @@
-// ExpenseList.jsx
-
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useExpenses, useExpensesDispatch } from './ExpensesContext.jsx';
+
+const tableHeaderStyle = {
+  marginBottom: '0',
+};
+
+const tableRowStyle = {
+  lineHeight: '0.75rem', // Adjust the line height as needed
+};
+
+const tableCellStyle = {
+  padding: '0.25rem 1rem', // Adjust the padding as needed
+};
 
 export default function ExpenseList() {
   const expenses = useExpenses();
 
-  // Check if expenses data is null or undefined
-  if (!expenses) {
-    return <p>No expenses found.</p>;
-  }
-
   return (
-    <ul>
-      {expenses.map(expense => (
-        <li key={expense.id}>
-          <Expense expense={expense} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      {expenses && expenses.length > 0 ? (
+        <table>
+          <thead>
+            <tr style={tableHeaderStyle}>
+              <th style={tableCellStyle}>Expense</th>
+              <th style={tableCellStyle}>Expense</th>
+              <th style={tableCellStyle}>Expense</th>
+              <th style={tableCellStyle}>Action</th>
+            </tr>
+            <tr style={tableRowStyle}>
+              <th style={tableCellStyle}>Name</th>
+              <th style={tableCellStyle}>Amount</th>
+              <th style={tableCellStyle}>Category</th>
+              <th style={tableCellStyle}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {expenses.map(expense => (
+              <Expense key={expense.id} expense={expense} />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p></p>
+      )}
+    </div>
   );
 }
 
@@ -26,105 +51,75 @@ function Expense({ expense }) {
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEditingCost, setIsEditingCost] = useState(false);
   const dispatch = useExpensesDispatch();
-  let expenseContent;
-  if (isEditingText) {
-    expenseContent = (
-      <>
-        <input
-          value={expense.text}
-          onChange={e => {
-            dispatch({
-              type: 'changed',
-              expense: {
-                ...expense,
-                text: e.target.value,
-              }
-            });
-          }} />
-        <button onClick={() => setIsEditingText(false)}>
-          Save
-        </button>
-      </>
-    );
-  } else if (isEditingCost) {
-    let originalCost = parseFloat(sessionStorage.getItem(expense.text))
-    expenseContent = (
-      <>
-        <input
-          value={expense.cost}
-          onChange={e => {
-            dispatch({
-              type: 'changed',
-              expense: {
-                ...expense,
-                cost: e.target.value,
-              }
-            });
-          }} />
-        {expenseContent}
-        <button onClick={() => {
-          sessionStorage.setItem("budget", parseFloat(sessionStorage.getItem("budget")) + (originalCost) - (parseFloat(expense.cost)));
-          let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
-          for (let x in expenseList) {
-              if (expenseList[x]["id"] == expense.id) {
-                expenseList[x]["cost"] = expense.cost;
-                break;
-              }
-          }
-          sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
-          setIsEditingCost(false)
-        }}>
-          Save
-        </button>
-      </>
-    );
-  } else {
-    expenseContent = (
-      <>
-        {expense.text}
-        <button onClick={() => setIsEditingText(true)}>
-          Edit
-        </button>
-        {expense.cost}
-        <button onClick={() => setIsEditingCost(true)}>
-          Edit
-        </button>
-      </>
-    );
-  }
+
+  const handleDelete = () => {
+    sessionStorage.setItem("budget", parseFloat(sessionStorage.getItem("budget")) + parseFloat(expense.cost));
+    let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"));
+    const updatedExpenses = expenseList.filter(item => item.id !== expense.id);
+    sessionStorage.setItem("initialExpenses", JSON.stringify(updatedExpenses));
+    dispatch({ type: 'deleted', id: expense.id });
+  };
+
   return (
-    <label>
-      <input
-        type="checkbox"
-        checked={expense.done}
-        onChange={e => {
-          dispatch({
-            type: 'changed',
-            expense: {
-              ...expense,
-              done: e.target.checked
-            }
-          });
-        }}
-      />
-      {expenseContent}
-      <button onClick={() => {
-        sessionStorage.setItem("budget", parseFloat(sessionStorage.getItem("budget")) + parseFloat(expense.cost));
-        let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
-        for (let x in expenseList) {
-            if (expenseList[x]["id"] == expense.id) {
-              expenseList.splice(x,1);
-              break;
-            }
-        }
-        sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
-        dispatch({
-          type: 'deleted',
-          id: expense.id
-        });
-      }}>
-        Delete
-      </button>
-    </label>
+    <tr style={tableRowStyle}>
+      <td style={tableCellStyle}>
+        {isEditingText ? (
+          <input
+            value={expense.text}
+            onChange={e => {
+              dispatch({
+                type: 'changed',
+                expense: {
+                  ...expense,
+                  text: e.target.value,
+                }
+              });
+            }} />
+        ) : (
+          expense.text
+        )}
+        {isEditingText ? (
+          <button onClick={() => setIsEditingText(false)}>
+            Save
+          </button>
+        ) : (
+          <button onClick={() => setIsEditingText(true)}>
+            Edit
+          </button>
+        )}
+      </td>
+      <td style={tableCellStyle}>
+        {isEditingCost ? (
+          <input
+            value={expense.cost}
+            onChange={e => {
+              dispatch({
+                type: 'changed',
+                expense: {
+                  ...expense,
+                  cost:  e.target.value,
+                }
+              });
+            }} />
+        ) : (
+          expense.cost
+        )}
+        {isEditingCost ? (
+          <button onClick={() => setIsEditingCost(false)}>
+            Save
+          </button>
+        ) : (
+          <button onClick={() => setIsEditingCost(true)}>
+            Edit
+          </button>
+        )}
+      </td>
+      <td style={tableCellStyle}>{expense.category}</td>
+      <td style={tableCellStyle}>
+        <button onClick={handleDelete}>
+          Delete
+        </button >
+      </td>
+    </tr>
   );
 }
