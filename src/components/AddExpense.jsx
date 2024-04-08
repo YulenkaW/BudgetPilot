@@ -1,5 +1,7 @@
 import { useState, useContext } from 'react';
 import { useExpensesDispatch } from './ExpensesContext.jsx';
+import ExpenseCategory from './ExpenseCategory.jsx';
+
 
 export default function AddExpense({ onAddExpense }) {
   const [text, setText] = useState('');
@@ -7,6 +9,7 @@ export default function AddExpense({ onAddExpense }) {
   const dispatch = useExpensesDispatch();
   return (
     <>
+     <ExpenseCategory />
       <input
         placeholder="Add expense"
         value={text}
