@@ -27,6 +27,8 @@ function BudgetInput() {
         }
     };
 
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
     const handleBudgetChange = (e) => {
         setBudget(e.target.value);
     };
@@ -35,6 +37,14 @@ function BudgetInput() {
         const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            sessionStorage.setItem("budget", budget);
+            sessionStorage.setItem("balance", budget);
+            sessionStorage.setItem("Food", 0);
+            sessionStorage.setItem("Transportation", 0);
+            sessionStorage.setItem("Entertainment", 0);
+            sessionStorage.setItem("Utilities", 0);
+            sessionStorage.setItem("Others", 0);
+            forceUpdate();            
             // Send budget to backend
             await postBudget({ budget: budget });
             // Show notification
@@ -61,7 +71,7 @@ function BudgetInput() {
                 />
                 <button type="submit">Set Budget</button>
             </form>
-            <p>Your current budget is: ${budget}</p>
+            <p>Your current budget is: ${sessionStorage.getItem("budget")}</p>
             <ToastContainer />{/* Notification window */}
         </div>
     );

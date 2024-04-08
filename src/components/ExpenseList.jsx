@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useExpenses, useExpensesDispatch } from './ExpensesContext.jsx';
 
 const tableHeaderStyle = {
@@ -51,9 +51,12 @@ function Expense({ expense }) {
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEditingCost, setIsEditingCost] = useState(false);
   const dispatch = useExpensesDispatch();
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   const handleDelete = () => {
-    sessionStorage.setItem("budget", parseFloat(sessionStorage.getItem("budget")) + parseFloat(expense.cost));
+    sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(expense.cost));
+    sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(expense.cost));
     let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"));
     const updatedExpenses = expenseList.filter(item => item.id !== expense.id);
     sessionStorage.setItem("initialExpenses", JSON.stringify(updatedExpenses));
@@ -79,9 +82,20 @@ function Expense({ expense }) {
           expense.text
         )}
         {isEditingText ? (
-          <button onClick={() => setIsEditingText(false)}>
-            Save
-          </button>
+        <button onClick={() => {
+          setIsEditingText(false);
+          let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
+          for (let x in expenseList) {
+              if (expenseList[x]["id"] == expense.id) {
+                expenseList[x]["text"] = expense.text;
+                break;
+              }
+          }
+          sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
+          forceUpdate();
+          }}>
+          Save
+        </button>
         ) : (
           <button onClick={() => setIsEditingText(true)}>
             Edit
@@ -89,7 +103,7 @@ function Expense({ expense }) {
         )}
       </td>
       <td style={tableCellStyle}>
-        {isEditingCost ? (
+        ${isEditingCost ? (
           <input
             value={expense.cost}
             onChange={e => {
@@ -105,9 +119,22 @@ function Expense({ expense }) {
           expense.cost
         )}
         {isEditingCost ? (
-          <button onClick={() => setIsEditingCost(false)}>
-            Save
-          </button>
+        <button onClick={() => {
+          let originalCost = parseFloat(sessionStorage.getItem(expense.text))
+          sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + (originalCost) - (parseFloat(expense.cost)));
+          let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
+          for (let x in expenseList) {
+              if (expenseList[x]["id"] == expense.id) {
+                expenseList[x]["cost"] = expense.cost;
+                break;
+              }
+          }
+          sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
+          setIsEditingCost(false)
+          forceUpdate();
+        }}>
+          Save
+        </button>
         ) : (
           <button onClick={() => setIsEditingCost(true)}>
             Edit

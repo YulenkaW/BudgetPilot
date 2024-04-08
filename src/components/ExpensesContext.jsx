@@ -1,9 +1,5 @@
 import { createContext, useContext, useReducer } from 'react';
 
-
-
-
-
 const ExpensesContext = createContext(null);
 const ExpensesDispatchContext = createContext(null);
 
@@ -39,11 +35,12 @@ export function useExpensesDispatch() {
 function expensesReducer(expenses, action) {
   switch (action.type) {
     case 'added': {
-      sessionStorage.setItem("budget", sessionStorage.getItem("budget") - action.cost/2);
+      sessionStorage.setItem("balance", sessionStorage.getItem("balance") - action.cost/2);
       return [...expenses, {
         id: action.id,
         text: action.text,
         cost: action.cost,
+        category: action.category,
         done: false
       }];
     }
@@ -64,6 +61,3 @@ function expensesReducer(expenses, action) {
     }
   }
 }
-
-//const initialExpenses = sessionStorage.getItem("initialExpenses")
-//initialExpenses[initialExpenses.length] = {  };
