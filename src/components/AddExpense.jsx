@@ -1,7 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useExpensesDispatch } from './ExpensesContext.jsx';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 //import ExpenseCategory from './ExpenseCategory.jsx';
 
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AddExpense({ onAddExpense }) {
   const [text, setText] = useState('');
@@ -15,6 +18,35 @@ export default function AddExpense({ onAddExpense }) {
   }
   return (
     <>
+    <div id="CategoriesPieChart">
+    <div style={{height:"40vh",position:"relative", marginBottom:"1%", padding:"1%"}}>
+      <Pie data={{
+      labels: ['Food', 'Transportation', 'Entertainment', 'Utilities', 'Others', 'Savings'],
+      datasets: [
+        {
+          data: [parseFloat(sessionStorage.getItem("Food")), parseFloat(sessionStorage.getItem("Transportation")), parseFloat(sessionStorage.getItem("Entertainment")), parseFloat(sessionStorage.getItem("Utilities")), parseFloat(sessionStorage.getItem("Others")), parseFloat(sessionStorage.getItem("balance"))],
+          backgroundColor: [
+            'rgba(0, 102, 204, 0.6)',
+            'rgba(204, 51, 255, 0.6)',
+            'rgba(255, 0, 0, 0.6)',
+            'rgba(255, 153, 51, 0.6)',
+            'rgba(255, 255, 102, 0.6)',
+            'rgba(0, 255, 0, 0.6)',
+          ],
+          borderColor: [
+            'rgba(0, 102, 204, 1)',
+            'rgba(204, 51, 255, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(255, 153, 51, 1)',
+            'rgba(255, 255, 102, 1)',
+            'rgba(0, 255, 0, 1)',
+          ],
+          borderWidth: 1,
+        },
+      ],
+      }}
+      options={{ maintainAspectRatio: false }} />
+    </div>
       <table>
         <tr>
           <th>Category</th>
@@ -45,6 +77,7 @@ export default function AddExpense({ onAddExpense }) {
           <td>${sessionStorage.getItem("balance")}</td>
         </tr>
       </table>
+      </div>
       <form>
         <select value={category} onChange={handleChange}>
           <option value="">Choose a category</option>
