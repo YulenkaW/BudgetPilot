@@ -52,3 +52,9 @@ a:active {
   background-color: transparent;
   text-decoration: underline;
 }
+
+#CategoriesPieChart {
+  height: 400px;
+  display: flex;
+  flex-direction: row-reverse;
+}
