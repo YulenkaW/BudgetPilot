@@ -1,20 +1,25 @@
-import React, { useState, useContext } from 'react';
-import { useExpensesDispatch } from './ExpensesContext.jsx';
+import React, { useState } from 'react';
 //import ExpenseCategory from './ExpenseCategory.jsx';
+import '../App.css';
+
 
 
 export default function AddExpense({ onAddExpense }) {
   const [text, setText] = useState('');
   const [text1, setText1] = useState('');
-  const dispatch = useExpensesDispatch();
   const [category, setCategory] = useState("");
+  const [expense, setExpense] = useState({});
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
   const handleChange = (e) => {
     setCategory(e.target.value)  
   }
+console.log(expense)
+
+
   return (
     <>
+   
       <table>
         <tr>
           <th>Category</th>
@@ -69,7 +74,7 @@ export default function AddExpense({ onAddExpense }) {
       <button onClick={() => {
         setText('');
         setText1('');
-        dispatch({
+        setExpense({
           type: 'added',
           id: nextId++,
           text: text,
@@ -85,8 +90,19 @@ export default function AddExpense({ onAddExpense }) {
         sessionStorage.setItem(category, parseFloat(sessionStorage.getItem(category)) + parseFloat(text1));
         forceUpdate();
       }}>Add</button>
+      {/*added*/}
+      <div>{expense?.type} </div>
+      
+      <div>{expense?.text} </div>
+      
+      <div> {sessionStorage.getItem(category)}</div>
+     
+      <div> {expense?.cost}</div>
+      
+
     </>
   );
+
 }
 
 let nextId = 0;

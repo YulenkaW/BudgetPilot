@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+//added import
 import { useExpenses, useExpensesDispatch } from './ExpensesContext.jsx';
 
 const tableHeaderStyle = {
@@ -15,6 +16,7 @@ const tableCellStyle = {
 
 export default function ExpenseList() {
   const expenses = useExpenses();
+  //const dispatch = useExpensesDispatch(); //added
 
   return (
     <div>

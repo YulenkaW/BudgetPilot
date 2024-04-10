@@ -10,9 +10,9 @@ const ExpenseTracker = () => {
 
     const [expenses, setExpenses] = useState(initialExpenses);
 
-    
+    //added
     useEffect(() => {
-        
+        // put into array
         console.log('Expenses have been set:', expenses);
     }, [expenses]); //  dependency array 
 

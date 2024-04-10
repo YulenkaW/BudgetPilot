@@ -4,13 +4,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function BudgetInput() {
     const [budget, setBudget] = useState(() => {
-        // Retrieve the stored budget from sessionStorage or set to 0 if not found
         const savedBudget = sessionStorage.getItem("budget");
         return savedBudget ? Number(savedBudget) : 0;
     });
 
     useEffect(() => {
-        // Whenever the budget changes, update it in the sessionStorage
         sessionStorage.setItem("budget", budget);
     }, [budget]);
 
@@ -18,11 +16,9 @@ function BudgetInput() {
         setBudget(e.target.value);
     };
 
-    // Form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Show notification
-        toast.success(`Your budget is set to: $${budget}`, { position: toast.POSITION.TOP_CENTER });
+        toast.success(`Your budget is set to: $${budget}`, { position: "top-center" }); // Fixed position property
     };
 
     return (
@@ -40,7 +36,7 @@ function BudgetInput() {
                 <button type="submit">Set Budget</button>
             </form>
             <p>Your current budget is: ${budget}</p>
-            <ToastContainer />{/* Notification window */}
+            <ToastContainer position="top-center" />{/* Notification window */}
         </div>
     );
 }

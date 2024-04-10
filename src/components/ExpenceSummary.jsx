@@ -1,21 +1,17 @@
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { useExpenses } from './ExpensesContext.jsx';
 
 const ExpenseSummary = () => {
-    // Custom hook to access expenses from our context
-    const expenses = useExpenses();
-
-    // Calculate the total expenses 
+    const expenses = useExpenses() || []; // Ensures expenses is always an array
+//modified
+    // Now that expenses is guaranteed to be an array, there's no need for conditional checks
     const totalExpenses = expenses.reduce((acc, expense) => {
-        // Assuming 'expense.text' contains the description and amount separated by "  :   "
-        // and the amount is always at the end after the last "  :   " in the text
         const parts = expense.text.split("  :   ");
         const amount = parseFloat(parts[parts.length - 1]);
         return acc + amount;
     }, 0);
 
-    // summary
     return (
         <div className="expense-summary">
             <h2>Expense Summary</h2>

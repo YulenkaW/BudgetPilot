@@ -43,3 +43,15 @@
     transform: rotate(360deg);
   }
 }
+
+
+button:hover {
+  transform: scale(1.1);
+  /* Make the button 10% larger */
+  transition: transform 0.3s ease;
+}
+
+button:active {
+  transform: scale(0.9);
+  /* Make the button 10% smaller */
+}
