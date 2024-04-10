@@ -1,55 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useExpensesDispatch } from './ExpensesContext.jsx';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 //import ExpenseCategory from './ExpenseCategory.jsx';
-import '../App.css';
 
-
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function AddExpense({ onAddExpense }) {
   const [text, setText] = useState('');
   const [text1, setText1] = useState('');
+  const dispatch = useExpensesDispatch();
   const [category, setCategory] = useState("");
-  const [expense, setExpense] = useState({});
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
   const handleChange = (e) => {
     setCategory(e.target.value)  
   }
-console.log(expense)
-
-
   return (
     <>
-   
-      <table>
-        <tr>
-          <th>Category</th>
-          <th>Amount</th>
-        </tr>
-        <tr>
-          <td>Food</td>
-          <td>${parseFloat(sessionStorage.getItem("Food"))}</td>
-        </tr>
-        <tr>
-          <td>Transportation</td>
-          <td>${parseFloat(sessionStorage.getItem("Transportation"))}</td>
-        </tr>
-        <tr>
-          <td>Entertainment</td>
-          <td>${parseFloat(sessionStorage.getItem("Entertainment"))}</td>
-        </tr>
-        <tr>
-          <td>Utilities</td>
-          <td>${parseFloat(sessionStorage.getItem("Utilities"))}</td>
-        </tr>
-        <tr>
-          <td>Other</td>
-          <td>${parseFloat(sessionStorage.getItem("Others"))}</td>
-        </tr>
-        <tr>
-          <th>Savings</th>
-          <td>${sessionStorage.getItem("balance")}</td>
-        </tr>
-      </table>
       <form>
         <select value={category} onChange={handleChange}>
           <option value="">Choose a category</option>
@@ -74,7 +42,7 @@ console.log(expense)
       <button onClick={() => {
         setText('');
         setText1('');
-        setExpense({
+        dispatch({
           type: 'added',
           id: nextId++,
           text: text,
@@ -90,19 +58,8 @@ console.log(expense)
         sessionStorage.setItem(category, parseFloat(sessionStorage.getItem(category)) + parseFloat(text1));
         forceUpdate();
       }}>Add</button>
-      {/*added*/}
-      <div>{expense?.type} </div>
-      
-      <div>{expense?.text} </div>
-      
-      <div> {sessionStorage.getItem(category)}</div>
-     
-      <div> {expense?.cost}</div>
-      
-
     </>
   );
-
 }
 
 let nextId = 0;
