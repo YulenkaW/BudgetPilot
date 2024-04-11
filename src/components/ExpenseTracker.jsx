@@ -1,4 +1,9 @@
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { useEffect, useState } from 'react';
+import { Pie } from 'react-chartjs-2';
+
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ExpenseTracker = () => {
     
