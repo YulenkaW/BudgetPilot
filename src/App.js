@@ -7,6 +7,7 @@ import ExpenseList from './components/ExpenseList.jsx';
 import { ExpensesProvider } from './components/ExpensesContext.jsx';
 import Login from './components/Login.jsx';
 import FinancialTipPage from './components/FinancialTipPage.jsx';
+import ExpenseTracker from "./components/ExpenseTracker.jsx"
 //import ExpenseSummary from './components/ExpenseSummary.jsx';
 
 
@@ -15,6 +16,14 @@ function App() {
 
   const handleLogin = () => {
     setLoggedIn(true);
+    // Set the category balances to 0; the Add Expense page won't work properly without this
+    sessionStorage.setItem("Food", 0);
+    sessionStorage.setItem("Transportation", 0);
+    sessionStorage.setItem("Entertainment", 0);
+    sessionStorage.setItem("Utilities", 0);
+    sessionStorage.setItem("Others", 0);
+    sessionStorage.setItem("balance", 0);
+    sessionStorage.setItem("budget", 0);
   };
 
   return (
@@ -39,18 +48,9 @@ function App() {
               </div>
               <Routes>
                 <Route path="/budget-input" element={<BudgetInput />} />
-                <Route path="/add-expense" element={<ExpensesProvider>
-                                                      <AddExpense />
-                                                      <ExpenseList />
-                                                    </ExpensesProvider>} />
-                <Route path="/financial-tip" element={<FinancialTipPage />} />
                 <Route path="/add-expense" element={<AddExpenseWithProvider />} />
+                <Route path="/financial-tip" element={<FinancialTipPage />} />                
               </Routes>
-              {loggedIn && (
-                <ExpensesProvider>
-                  <ExpenseList />
-                </ExpensesProvider>
-              )}
             </>
           )}
         </header>
@@ -63,6 +63,7 @@ function App() {
 function AddExpenseWithProvider() {
   return (
     <ExpensesProvider>
+      <ExpenseTracker />
       <AddExpense />
       <ExpenseList />
     </ExpensesProvider>
