@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useExpenses, useExpensesDispatch } from './ExpensesContext.jsx';
+import { useNavigate } from 'react-router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const tableHeaderStyle = {
   marginBottom: '0',
@@ -51,8 +54,11 @@ function Expense({ expense }) {
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEditingCost, setIsEditingCost] = useState(false);
   const dispatch = useExpensesDispatch();
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const navigate = useNavigate()
+  const softRefreshPage = () =>{
+      navigate("/refresh");
+      navigate(-1);
+  }
 
   const handleDelete = () => {
     sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(expense.cost));
@@ -61,6 +67,8 @@ function Expense({ expense }) {
     const updatedExpenses = expenseList.filter(item => item.id !== expense.id);
     sessionStorage.setItem("initialExpenses", JSON.stringify(updatedExpenses));
     dispatch({ type: 'deleted', id: expense.id });
+    //Refresh page to show changes
+    softRefreshPage();
   };
 
   return (
@@ -83,16 +91,23 @@ function Expense({ expense }) {
         )}
         {isEditingText ? (
         <button onClick={() => {
-          setIsEditingText(false);
-          let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
-          for (let x in expenseList) {
-              if (expenseList[x]["id"] == expense.id) {
-                expenseList[x]["text"] = expense.text;
-                break;
-              }
+          //if expense is not named
+          if (expense.text == "") {
+            toast.error("Expense name must be filled out", { position: toast.POSITION.TOP_CENTER });
           }
-          sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
-          forceUpdate();
+          else {
+            setIsEditingText(false);
+            let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
+            for (let x in expenseList) {
+                if (expenseList[x]["id"] == expense.id) {
+                  expenseList[x]["text"] = expense.text;
+                  break;
+                }
+            }
+            sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
+            //Refresh page to show changes
+            softRefreshPage();
+          }
           }}>
           Save
         </button>
@@ -106,6 +121,7 @@ function Expense({ expense }) {
         ${isEditingCost ? (
           <input
             value={expense.cost}
+            type="number"
             onChange={e => {
               dispatch({
                 type: 'changed',
@@ -120,8 +136,19 @@ function Expense({ expense }) {
         )}
         {isEditingCost ? (
         <button onClick={() => {
+        //if expense amount is not specified
+        if (expense.cost == "") {
+          toast.error("Expense amount must be filled out with a number", { position: toast.POSITION.TOP_CENTER });
+        }
+        //if expense amount is invalid
+        else if (parseFloat(expense.cost) <= 0) {
+          toast.error("Expense amount must above 0", { position: toast.POSITION.TOP_CENTER });
+        }
+        else {
+          setIsEditingCost(false);
           let originalCost = parseFloat(sessionStorage.getItem(expense.text))
           sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + (originalCost) - (parseFloat(expense.cost)));
+          sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - (originalCost) + (parseFloat(expense.cost)));
           let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
           for (let x in expenseList) {
               if (expenseList[x]["id"] == expense.id) {
@@ -130,8 +157,9 @@ function Expense({ expense }) {
               }
           }
           sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
-          setIsEditingCost(false)
-          forceUpdate();
+          //Refresh page to show changes
+          softRefreshPage();
+        }
         }}>
           Save
         </button>

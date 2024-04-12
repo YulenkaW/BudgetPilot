@@ -1,18 +1,20 @@
 import React, { useState, useContext } from 'react';
 import { useExpensesDispatch } from './ExpensesContext.jsx';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
-//import ExpenseCategory from './ExpenseCategory.jsx';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { useNavigate } from 'react-router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AddExpense({ onAddExpense }) {
   const [text, setText] = useState('');
   const [text1, setText1] = useState('');
   const dispatch = useExpensesDispatch();
   const [category, setCategory] = useState("");
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
+  const navigate = useNavigate()
+  const softRefreshPage = () =>{
+      navigate("/refresh");
+      navigate(-1);
+  }
+
   const handleChange = (e) => {
     setCategory(e.target.value)  
   }
@@ -40,24 +42,47 @@ export default function AddExpense({ onAddExpense }) {
         onChange={f => setText1(f.target.value)}
       />
       <button onClick={() => {
-        setText('');
-        setText1('');
-        dispatch({
-          type: 'added',
-          id: nextId++,
-          text: text,
-          cost: text1,
-          category: category,
-        });
-        //Add expense to list
-        sessionStorage.setItem(text, text1);
-        expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
-        expenseList[expenseList.length] = { id: nextId++, text: text, cost: parseFloat(text1), category: category, done: false };
-        sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
-        //Keep track of categories
-        sessionStorage.setItem(category, parseFloat(sessionStorage.getItem(category)) + parseFloat(text1));
-        forceUpdate();
+        //if category is not selected
+        if (category == "") {
+          toast.error("Category must be selected", { position: toast.POSITION.TOP_CENTER });
+          return false;
+        }
+        //if expense is not named
+        else if (text == "") {
+          toast.error("Expense name must be filled out", { position: toast.POSITION.TOP_CENTER });
+        }
+        //if expense amount is not specified
+        else if (text1 == "") {
+          toast.error("Expense amount must be filled out with a number", { position: toast.POSITION.TOP_CENTER });
+        }
+        //if expense amount is invalid
+        else if (text1 <= 0) {
+          toast.error("Expense amount must above 0", { position: toast.POSITION.TOP_CENTER });
+        }
+        else {        
+          setText('');
+          setText1('');
+          dispatch({
+            type: 'added',
+            id: nextId++,
+            text: text,
+            cost: text1,
+            category: category,
+          });
+          //Add expense to list
+          sessionStorage.setItem(text, text1);
+          expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
+          expenseList[expenseList.length] = { id: nextId++, text: text, cost: parseFloat(text1), category: category, done: false };
+          sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
+          //Subtract expense amount from balance
+          sessionStorage.setItem("balance", sessionStorage.getItem("balance") - parseFloat(text1));
+          //Keep track of categories
+          sessionStorage.setItem(category, parseFloat(sessionStorage.getItem(category)) + parseFloat(text1));
+          //Refresh page to show changes
+          softRefreshPage();
+      }
       }}>Add</button>
+      <ToastContainer />{/* Notification window */}
     </>
   );
 }

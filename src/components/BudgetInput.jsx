@@ -21,14 +21,11 @@ function BudgetInput() {
     // Form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Set the balance equal to the budget (it will be reduced by entered expenses)
+        //Set the balance equal to the new budget, then subtract all expenses from the new balance
         sessionStorage.setItem("balance", budget);
-        // Set the category balances to 0; the Add Expense page won't work properly without this
-        sessionStorage.setItem("Food", 0);
-        sessionStorage.setItem("Transportation", 0);
-        sessionStorage.setItem("Entertainment", 0);
-        sessionStorage.setItem("Utilities", 0);
-        sessionStorage.setItem("Others", 0);              
+        sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) - sessionStorage.getItem("Food") - 
+            sessionStorage.getItem("Transportation") - sessionStorage.getItem("Entertainment") - 
+            sessionStorage.getItem("Utilities") - sessionStorage.getItem("Others"));
         // Show notification
         toast.success(`Your budget is set to: $${budget}`, { position: toast.POSITION.TOP_CENTER });
     };

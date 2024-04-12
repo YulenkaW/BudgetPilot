@@ -4,7 +4,7 @@ const ExpensesContext = createContext(null);
 const ExpensesDispatchContext = createContext(null);
 
 let expenseList = []
-expenseList[expenseList.length] = { id: 0, text: "Sample expense", cost: 0, done: true };
+expenseList[expenseList.length] = { id: 0, text: "Sample expense", cost: 0, category: "Others", done: true };
 sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
 
 export function ExpensesProvider({ children }) {
@@ -35,7 +35,6 @@ export function useExpensesDispatch() {
 function expensesReducer(expenses, action) {
   switch (action.type) {
     case 'added': {
-      sessionStorage.setItem("balance", sessionStorage.getItem("balance") - action.cost/2);
       return [...expenses, {
         id: action.id,
         text: action.text,

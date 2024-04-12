@@ -84,6 +84,10 @@ const ExpenseTracker = () => {
                 </tr>
             </table>
             </div>
+            {(sessionStorage.getItem("balance") / sessionStorage.getItem("budget")) < 0.2 && sessionStorage.getItem("balance") > 0 &&
+              <p1 style={{color: "orange"}}> You should try to save more money. </p1> }
+            {sessionStorage.getItem("balance") < 0 &&
+              <p1 style={{color: "red"}}> You have exceeded your budget. </p1> }
             <ul>
                 {expenses.map(expense => (
                     <li key={expense.id}>
