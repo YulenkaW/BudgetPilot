@@ -4,35 +4,37 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function BudgetInput() {
     const [budget, setBudget] = useState(() => {
-        // Retrieve the stored budget from sessionStorage or set to 0 if not found
         const savedBudget = sessionStorage.getItem("budget");
         return savedBudget ? Number(savedBudget) : 0;
     });
 
+    const [salary, setSalary] = useState(() => {
+        const savedSalary = sessionStorage.getItem("salary");
+        return savedSalary ? Number(savedSalary) : 0;
+    });
+
     useEffect(() => {
-        // Whenever the budget changes, update it in the sessionStorage
         sessionStorage.setItem("budget", budget);
-    }, [budget]);
+        sessionStorage.setItem("salary", salary);
+    }, [budget, salary]);
 
     const handleBudgetChange = (e) => {
-        setBudget(e.target.value);
+        setBudget(Number(e.target.value));
     };
 
-    // Form submission
+    const handleSalaryChange = (e) => {
+        setSalary(Number(e.target.value));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Set the balance equal to the new budget, then subtract all expenses from the new balance
-        sessionStorage.setItem("balance", budget);
-        sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) - sessionStorage.getItem("Food") - 
-            sessionStorage.getItem("Transportation") - sessionStorage.getItem("Entertainment") - 
-            sessionStorage.getItem("Utilities") - sessionStorage.getItem("Others"));
-        // Show notification
-        toast.success(`Your budget is set to: $${budget}`)//, { position: toast.POSITION.TOP_CENTER });
+        toast.success(`Your budget is set to: $${budget} and salary is set to: $${salary}`, //{ position: toast.POSITION.TOP_CENTER }
+    );
     };
 
     return (
         <div>
-            <h2>Enter Your Monthly Budget</h2>
+            <h2>Enter Your Monthly Budget and Salary</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="budgetInput">Monthly Budget:</label>
                 <input
@@ -42,10 +44,19 @@ function BudgetInput() {
                     onChange={handleBudgetChange}
                     placeholder="Enter your budget"
                 />
-                <button type="submit">Set Budget</button>
+                <label htmlFor="salaryInput">Monthly Salary:</label>
+                <input
+                    type="number"
+                    id="salaryInput"
+                    value={salary}
+                    onChange={handleSalaryChange}
+                    placeholder="Enter your salary"
+                />
+                <button type="submit">Set Budget and Salary</button>
             </form>
             <p>Your current budget is: ${budget}</p>
-            <ToastContainer />{/* Notification window */}
+            <p>Your current salary is: ${salary}</p>
+            <ToastContainer />
         </div>
     );
 }

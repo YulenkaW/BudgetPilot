@@ -1,17 +1,18 @@
 // App.js
 import React, { useState } from 'react';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import BudgetInput from './components/BudgetInput';
+import Logo from './Logo.png';
+import Name from './Logo_Name.png';
 import AddExpense from './components/AddExpense.jsx';
+import BudgetInput from './components/BudgetInput';
 import ExpenseList from './components/ExpenseList.jsx';
+import ExpenseTracker from "./components/ExpenseTracker.jsx";
 import { ExpensesProvider } from './components/ExpensesContext.jsx';
-import Login from './components/Login.jsx';
 import FinancialTipPage from './components/FinancialTipPage.jsx';
-import ExpenseTracker from "./components/ExpenseTracker.jsx"
-import Rewards from "./components/Rewards.jsx" // Import the Rewards component
-import Logo from './Logo.png'
-import Name from './Logo_Name.png'
+import Login from './components/Login.jsx';
+import MonthlyReport from "./components/MonthlyReport.jsx";
+import Rewards from "./components/Rewards.jsx"; // Import the Rewards component
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -40,26 +41,31 @@ function App() {
               <h1 className="centered-img-container">
               <img src={Name} alt="Name" className="centered-img" />
               </h1>
-              <div className="button-container">
-                <Link to="/budget-input">
-                  <button>Budget Input</button>
-                </Link>
-                <Link to="/add-expense">
-                  <button>Add Expense</button>
-                </Link>
-                <Link to="/financial-tip">
-                  <button>Financial Tips</button>
-                </Link>
-                <Link to="/rewards"> {/* Add a link to the Rewards page */}
-                  <button>Rewards</button>
-                </Link>
-              </div>
-              <Routes>
-                <Route path="/budget-input" element={<BudgetInput />} />
-                <Route path="/add-expense" element={<AddExpenseWithProvider />} />
-                <Route path="/financial-tip" element={<FinancialTipPage />} />
-                <Route path="/rewards" element={<Rewards />} /> {/* Route to the Rewards component */}
-              </Routes>
+                <div className="button-container">
+                  <Link to="/budget-input">
+                    <button>Budget Input</button>
+                  </Link>
+                  <Link to="/add-expense">
+                    <button>Add Expense</button>
+                  </Link>
+                  <Link to="/financial-tip">
+                    <button>Financial Tips</button>
+                  </Link>
+                  <Link to="/rewards">
+                    <button>Rewards</button>
+                  </Link>
+                  <Link to="/monthly-report">
+                    <button>Monthly Report</button>
+                  </Link>
+                </div>
+
+                <Routes>
+                  <Route path="/budget-input" element={<BudgetInput />} />
+                  <Route path="/add-expense" element={<AddExpenseWithProvider />} />
+                  <Route path="/financial-tip" element={<FinancialTipPage />} />
+                  <Route path="/rewards" element={<Rewards />} />
+                  <Route path="/monthly-report" element={<MonthlyReport />} />
+                </Routes>
             </>
           )}
         </header>
