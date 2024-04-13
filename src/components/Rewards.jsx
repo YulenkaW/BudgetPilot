@@ -89,7 +89,7 @@ const Rewards = () => {
                         outline: 'none',
                         border: '1px solid #ccc',
                         padding: '5px 10px',
-                        backgroundColor: answers[index] === option ? '#90ee90' : 'transparent', // Highlight selected option
+                        backgroundColor: answers[index] === option ? '#749c94' : '#284a6e', // Highlight selected option
                       }}
                     >
                       {option}
