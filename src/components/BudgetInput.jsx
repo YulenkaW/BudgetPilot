@@ -27,7 +27,7 @@ function BudgetInput() {
             sessionStorage.getItem("Transportation") - sessionStorage.getItem("Entertainment") - 
             sessionStorage.getItem("Utilities") - sessionStorage.getItem("Others"));
         // Show notification
-        toast.success(`Your budget is set to: $${budget}`, { position: toast.POSITION.TOP_CENTER });
+        toast.success(`Your budget is set to: $${budget}`)//, { position: toast.POSITION.TOP_CENTER });
     };
 
     return (
