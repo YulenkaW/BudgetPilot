@@ -72,6 +72,7 @@ const Rewards = () => {
       {!showResult ? (
         <div>
           <p>Test your financial knowledge with this quiz!</p>
+          <p>Earn points to redeem gift cards!</p>
           <ol>
             {questions.map((q, index) => (
               <li key={index}>
