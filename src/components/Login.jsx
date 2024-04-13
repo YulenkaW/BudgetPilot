@@ -4,7 +4,6 @@ function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [salary, setSalary] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
 
   const handleLogin = () => {
@@ -27,14 +26,6 @@ function Login({ onLogin }) {
       return;
     }
 
-    // Validate salary
-    if (!salary.trim()) {
-      alert('Salary cannot be empty');
-      return;
-    } else if (!/^\d+$/.test(salary.trim())) {
-      alert('Salary must be a numerical value');
-      return;
-    }
 
     // Validate username and password
     if (!username.trim() || !password.trim()) {
@@ -56,13 +47,6 @@ function Login({ onLogin }) {
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Salary"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
             required
           />
           <input
