@@ -36,6 +36,7 @@ const Rewards = () => {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [earnedPoints, setEarnedPoints] = useState(0);
+  const [currentPoints, setCurrentPoints] = useState(0);
 
   const handleAnswerClick = (index, selectedOption) => {
     const newAnswers = [...answers];
@@ -53,6 +54,7 @@ const Rewards = () => {
     const newEarnedPoints = newScore * 100; // Each correct answer = 100 points
     setScore(newScore);
     setEarnedPoints(newEarnedPoints);
+    setCurrentPoints(currentPoints + newEarnedPoints); // Update current points
     setShowResult(true);
   };
 
@@ -61,7 +63,7 @@ const Rewards = () => {
   const giftCardExamples = [
     { name: 'Visa $10', points: 10000 },
     { name: 'Amazon $10', points: 15000 },
-    // Add more gift card examples here
+    { name: 'Best Buy $10', points: 12000 },
   ];
 
   return (
@@ -101,7 +103,7 @@ const Rewards = () => {
           <h3>Quiz Result</h3>
           <p>You scored {score} out of {questions.length}!</p>
           <p>You earned {earnedPoints} points!</p>
-          <h3>Gift Card Examples:</h3>
+          <h3>Gift Cards:</h3>
           <ul>
             {giftCardExamples.map((giftCard, index) => (
               <li key={index}>
@@ -119,7 +121,11 @@ const Rewards = () => {
           </ol>
         </div>
       )}
-      <p>Keep earning points every day!</p>
+      <div style={{ marginTop: '20px' }}>
+        <div style={{ border: '1px solid #ccc', padding: '10px' }}>
+          <p>Current Points: {currentPoints} points</p> {/* Display current points */}
+        </div>
+      </div>
       <div>
         <Link to="/">Back to Home</Link>
       </div>
