@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { useExpensesDispatch } from './ExpensesContext.jsx';
-import { useNavigate } from 'react-router'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useExpensesDispatch } from './ExpensesContext.jsx';
 
 export default function AddExpense({ onAddExpense }) {
   const [text, setText] = useState('');
@@ -10,13 +10,13 @@ export default function AddExpense({ onAddExpense }) {
   const dispatch = useExpensesDispatch();
   const [category, setCategory] = useState("");
   const navigate = useNavigate()
-  const softRefreshPage = () =>{
-      navigate("/refresh");
-      navigate(-1);
+  const softRefreshPage = () => {
+    navigate("/refresh");
+    navigate(-1);
   }
 
   const handleChange = (e) => {
-    setCategory(e.target.value)  
+    setCategory(e.target.value)
   }
   return (
     <>
@@ -59,7 +59,7 @@ export default function AddExpense({ onAddExpense }) {
         else if (text1 <= 0) {
           toast.error("Expense amount must above 0", { position: toast.POSITION.TOP_CENTER });
         }
-        else {        
+        else {
           setText('');
           setText1('');
           dispatch({
@@ -80,7 +80,7 @@ export default function AddExpense({ onAddExpense }) {
           sessionStorage.setItem(category, parseFloat(sessionStorage.getItem(category)) + parseFloat(text1));
           //Refresh page to show changes
           softRefreshPage();
-      }
+        }
       }}>Add</button>
       <ToastContainer />{/* Notification window */}
     </>
