@@ -25,8 +25,31 @@ const ExpenseTracker = () => {
     return (
         <div>
             <h2>Expense Tracker</h2>
-            <p>Reminding you, your salary is: ${salary.toFixed(2)}</p>
-            <p>And your budget is: ${budget.toFixed(2)}</p>
+            {/* Salary display box styled and positioned on the right side, centered vertically */}
+            <div style={{
+                position: 'absolute', //drawing fun picture
+                right: '20px', 
+                top: '30%', 
+                transform: 'translateY(-50%)', 
+                background: 'linear-gradient(25deg, #1e5799 0%,#256ec6 50%,#2989d8 75%, #7db9e8 100%)', 
+                borderRadius: '15px', 
+                padding: '20px 40px', 
+                boxShadow: '0 4px 8px rgba(0,0,0,0.5)', 
+                color: '#fff', 
+                fontWeight: 'bold', 
+                textAlign: 'center', 
+                minWidth: '250px', 
+                fontSize: '18px', 
+                display: 'flex', 
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10, 
+                letterSpacing: '2px' 
+            }}>
+                Your salary is: ${salary.toFixed(2)}
+            </div>
+            
+            <p>Your budget is: ${budget.toFixed(2)}</p>
             <p>Was spent: ${totalExpenses.toFixed(2)}</p>
             <div id="CategoriesPieChart">
                 <div style={{ height: "40vh", position: "relative", marginBottom: "1%", padding: "1%" }}>

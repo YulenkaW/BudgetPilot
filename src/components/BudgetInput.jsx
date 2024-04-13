@@ -32,7 +32,6 @@ function BudgetInput() {
         toast.success(`Your budget is set to: $${budget} and salary is set to: $${salary}`, //{ position: toast.POSITION.TOP_CENTER }
     );
     };
-    
 
     return (
         <div>
