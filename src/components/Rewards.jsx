@@ -106,13 +106,21 @@ const Rewards = () => {
           <h3>Quiz Result</h3>
           <p>You scored {score} out of {questions.length}!</p>
           <p>You earned {earnedPoints} points!</p>
+          <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+            <div style={{ border: '1px solid #ccc', padding: '10px' }}>
+              <p>Total Points: {currentPoints} points</p> {/* Display current points */}
+            </div>
+          </div>
           <h3>Gift Cards:</h3>
           <ul>
-            {giftCardExamples.map((giftCard, index) => (
-              <li key={index}>
-                {giftCard.name}: {giftCard.points} points
-              </li>
-            ))}
+            {giftCardExamples.map((giftCard, index) => {
+              const pointsLeft = Math.max(0, giftCard.points - currentPoints);
+              return (
+                <li key={index}>
+                  {giftCard.name}: {giftCard.points} points ({pointsLeft} points left to redeem)
+                </li>
+              );
+            })}
           </ul>
           <h3>Correct Answers:</h3>
           <ol>
@@ -124,11 +132,6 @@ const Rewards = () => {
           </ol>
         </div>
       )}
-      <div style={{ marginTop: '20px' }}>
-        <div style={{ border: '1px solid #ccc', padding: '10px' }}>
-          <p>Current Points: {currentPoints} points</p> {/* Display current points */}
-        </div>
-      </div>
       <div>
         <Link to="/">Back to Home</Link>
       </div>
