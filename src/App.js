@@ -10,6 +10,7 @@ import { ExpensesProvider } from './components/ExpensesContext.jsx';
 import Login from './components/Login.jsx';
 import FinancialTipPage from './components/FinancialTipPage.jsx';
 import ExpenseTracker from "./components/ExpenseTracker.jsx"
+
 import Rewards from "./components/Rewards.jsx" // Import the Rewards component
 
 function App() {
