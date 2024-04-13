@@ -105,7 +105,7 @@ const Rewards = () => {
                         outline: 'none',
                         border: '1px solid #ccc',
                         padding: '5px 10px',
-                        backgroundColor: answers[index] === option ? '#90ee90' : 'transparent', // Highlight selected option
+                        backgroundColor: answers[index] === option ? '#284a6e' : 'transparent', // Highlight selected option
                       }}
                     >
                       {option}

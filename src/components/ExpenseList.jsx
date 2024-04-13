@@ -171,7 +171,7 @@ function Expense({ expense }) {
       </td>
       <td style={tableCellStyle}>{expense.category}</td>
       <td style={tableCellStyle}>
-        <button onClick={handleDelete}>
+        <button onClick={handleDelete} style={{ backgroundColor: 'rgb(175, 0, 0)'}}>
           Delete
         </button >
       </td>

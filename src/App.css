@@ -1,35 +1,38 @@
-/* App.css */
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
+  position: relative; /* Set position to relative for containing absolutely positioned elements */
+  background-color: #e7dfd4;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #284a6e;
+}
+
+.right-img {
+  position: absolute; /* Position the image absolutely */
+  top: 10px; /* Adjust top distance from the top edge */
+  right: 20px; /* Adjust right distance from the right edge */
+  width: 100px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.centered-img {
+  position: absolute;
+  width: 300px; /* Increase the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  top: 45px; /* Adjust the distance from the top edge */
+  left: 50%;
+  transform: translateX(-50%); /* Center horizontally */
 }
 
 .button-container {
   display: flex;
   gap: 10px; 
+  margin-top: 60px; /* Add margin-top to create space between image and buttons */
 }
+
 
 .App-link {
   color: #61dafb;

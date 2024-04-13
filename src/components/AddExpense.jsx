@@ -31,12 +31,12 @@ export default function AddExpense({ onAddExpense }) {
         </select>
       </form>
       <input
-        placeholder="Add expense"
+        placeholder="Expense Name"
         value={text}
         onChange={e => setText(e.target.value)}
       />
       <input
-        placeholder="Expense amount"
+        placeholder="Expense Amount"
         value={text1}
         type="number"
         onChange={f => setText1(f.target.value)}
@@ -44,12 +44,12 @@ export default function AddExpense({ onAddExpense }) {
       <button onClick={() => {
         //if category is not selected
         if (category == "") {
-          toast.error("Category must be selected", { position: toast.POSITION.TOP_CENTER });
+          toast.error("Category must be selected")// , { position: toast.POSITION.TOP_CENTER });
           return false;
         }
         //if expense is not named
         else if (text == "") {
-          toast.error("Expense name must be filled out", { position: toast.POSITION.TOP_CENTER });
+          toast.error("Expense name must be filled out")//, { position: toast.POSITION.TOP_CENTER });
         }
         //if expense amount is not specified
         else if (text1 == "") {
