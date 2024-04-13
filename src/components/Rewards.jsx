@@ -1,6 +1,6 @@
 // Rewards.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Rewards = () => {
@@ -36,14 +36,6 @@ const Rewards = () => {
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [earnedPoints, setEarnedPoints] = useState(0);
-  const [lastAttemptDate, setLastAttemptDate] = useState(null);
-
-  useEffect(() => {
-    const lastAttempt = localStorage.getItem('lastAttemptDate');
-    if (lastAttempt) {
-      setLastAttemptDate(new Date(lastAttempt));
-    }
-  }, []);
 
   const handleAnswerClick = (index, selectedOption) => {
     const newAnswers = [...answers];
@@ -52,11 +44,6 @@ const Rewards = () => {
   };
 
   const handleSubmitQuiz = () => {
-    if (lastAttemptDate && isSameDay(new Date(), lastAttemptDate)) {
-      alert('You have already attempted the quiz today. Please try again tomorrow.');
-      return;
-    }
-
     let newScore = 0;
     for (let i = 0; i < questions.length; i++) {
       if (answers[i] === questions[i].answer) {
@@ -67,14 +54,6 @@ const Rewards = () => {
     setScore(newScore);
     setEarnedPoints(newEarnedPoints);
     setShowResult(true);
-
-    localStorage.setItem('lastAttemptDate', new Date().toISOString());
-  };
-
-  const isSameDay = (date1, date2) => {
-    return date1.getFullYear() === date2.getFullYear() &&
-           date1.getMonth() === date2.getMonth() &&
-           date1.getDate() === date2.getDate();
   };
 
   const correctAnswers = questions.map((q) => q.answer);
@@ -82,7 +61,7 @@ const Rewards = () => {
   const giftCardExamples = [
     { name: 'Visa $10', points: 10000 },
     { name: 'Amazon $10', points: 15000 },
-    { name: 'Best Buy $10', points: 12000 },
+    // Add more gift card examples here
   ];
 
   return (
@@ -122,8 +101,7 @@ const Rewards = () => {
           <h3>Quiz Result</h3>
           <p>You scored {score} out of {questions.length}!</p>
           <p>You earned {earnedPoints} points!</p>
-          <p>Keep earning points every day! Limit 1 Quiz per day!</p>
-          <h3>Gift Cards to Redeem:</h3>
+          <h3>Gift Card Examples:</h3>
           <ul>
             {giftCardExamples.map((giftCard, index) => (
               <li key={index}>
@@ -141,6 +119,7 @@ const Rewards = () => {
           </ol>
         </div>
       )}
+      <p>Keep earning points every day!</p>
       <div>
         <Link to="/">Back to Home</Link>
       </div>
