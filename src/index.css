@@ -9,8 +9,8 @@ code {
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(0, 34, 7, 0.87);
-  background-color: #fbfffd;
+  color: #e7dfd4;
+  background-color: #284a6e;
 }
 
 body {
@@ -26,14 +26,14 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: rgb(255, 255, 255);
-  background-color: #004713;
+  color: #e7dfd4;
+  background-color: #284a6e;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
 a:link {
-  color: rgb(1, 167, 1);
+  color: #284a6e;
   background-color: transparent;
   text-decoration: none;
 }
@@ -43,7 +43,7 @@ a:visited {
   text-decoration: none;
 }
 a:hover {
-  color: rgb(96, 255, 96);
+  color: #284a6e;
   background-color: transparent;
   text-decoration: none;
 }

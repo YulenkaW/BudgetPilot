@@ -32,20 +32,20 @@ const ExpenseTracker = () => {
                 {
                 data: [parseFloat(sessionStorage.getItem("Food")), parseFloat(sessionStorage.getItem("Transportation")), parseFloat(sessionStorage.getItem("Entertainment")), parseFloat(sessionStorage.getItem("Utilities")), parseFloat(sessionStorage.getItem("Others")), parseFloat(sessionStorage.getItem("balance"))],
                 backgroundColor: [
-                    'rgba(0, 102, 204, 0.6)',
-                    'rgba(204, 51, 255, 0.6)',
-                    'rgba(255, 0, 0, 0.6)',
-                    'rgba(255, 153, 51, 0.6)',
-                    'rgba(255, 255, 102, 0.6)',
-                    'rgba(0, 255, 0, 0.6)',
+                    'rgba(40, 74, 110, 0.6)', // Deep Blue
+                    'rgba(177, 143, 255, 0.6)', // Light Lavender
+                    'rgba(159, 72, 72, 0.6)', // Muted Red
+                    'rgba(217, 121, 61, 0.6)', // Burnt Orange
+                    'rgba(165, 157, 77, 0.6)', // Dark Yellow
+                    'rgba(46, 93, 67, 0.6)', // Forest Green
                 ],
                 borderColor: [
-                    'rgba(0, 102, 204, 1)',
-                    'rgba(204, 51, 255, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 153, 51, 1)',
-                    'rgba(255, 255, 102, 1)',
-                    'rgba(0, 255, 0, 1)',
+                    'rgba(28, 54, 96, 1)', // Dark Blue
+                    'rgba(99, 47, 118, 1)', // Deep Purple
+                    'rgba(194, 94, 119, 1)', // Dusky Pink
+                    'rgba(196, 102, 63, 1)', // Rusty Orange
+                    'rgba(79, 116, 63, 1)', // Olive Green
+                    'rgba(31, 59, 41, 1)', // Dark Green
                 ],
                 borderWidth: 1,
                 },

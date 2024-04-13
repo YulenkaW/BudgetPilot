@@ -1,5 +1,4 @@
 // App.js
-
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -10,8 +9,9 @@ import { ExpensesProvider } from './components/ExpensesContext.jsx';
 import Login from './components/Login.jsx';
 import FinancialTipPage from './components/FinancialTipPage.jsx';
 import ExpenseTracker from "./components/ExpenseTracker.jsx"
-
 import Rewards from "./components/Rewards.jsx" // Import the Rewards component
+import Logo from './Logo.png'
+import Name from './Logo_Name.png'
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -36,7 +36,10 @@ function App() {
             <Login onLogin={handleLogin} />
           ) : (
             <>
-              <h1>BudgetPilot</h1>
+              <img src={Logo} alt="Logo" className="right-img"/>
+              <h1 className="centered-img-container">
+              <img src={Name} alt="Name" className="centered-img" />
+              </h1>
               <div className="button-container">
                 <Link to="/budget-input">
                   <button>Budget Input</button>
