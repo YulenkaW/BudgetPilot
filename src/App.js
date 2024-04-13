@@ -1,3 +1,5 @@
+// App.js
+
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -8,8 +10,7 @@ import { ExpensesProvider } from './components/ExpensesContext.jsx';
 import Login from './components/Login.jsx';
 import FinancialTipPage from './components/FinancialTipPage.jsx';
 import ExpenseTracker from "./components/ExpenseTracker.jsx"
-//import ExpenseSummary from './components/ExpenseSummary.jsx';
-
+import Rewards from "./components/Rewards.jsx" // Import the Rewards component
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -45,11 +46,15 @@ function App() {
                 <Link to="/financial-tip">
                   <button>Financial Tips</button>
                 </Link>
+                <Link to="/rewards"> {/* Add a link to the Rewards page */}
+                  <button>Rewards</button>
+                </Link>
               </div>
               <Routes>
                 <Route path="/budget-input" element={<BudgetInput />} />
                 <Route path="/add-expense" element={<AddExpenseWithProvider />} />
-                <Route path="/financial-tip" element={<FinancialTipPage />} />                
+                <Route path="/financial-tip" element={<FinancialTipPage />} />
+                <Route path="/rewards" element={<Rewards />} /> {/* Route to the Rewards component */}
               </Routes>
             </>
           )}
