@@ -4,7 +4,7 @@ const ExpensesContext = createContext(null);
 const ExpensesDispatchContext = createContext(null);
 
 let expenseList = []
-expenseList[expenseList.length] = { id: 0, text: "Sample expense", cost: 0, category: "Others", done: true };
+//expenseList[expenseList.length] = { id: 0, text: "Sample expense", cost: 0, category: "Others", done: true };
 sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));
 
 export function ExpensesProvider({ children }) {

@@ -66,11 +66,11 @@ export default function AddExpense({ onAddExpense }) {
             type: 'added',
             id: nextId++,
             text: text,
-            cost: text1,
+            cost: parseFloat(text1),
             category: category,
           });
           //Add expense to list
-          sessionStorage.setItem(text, text1);
+          sessionStorage.setItem(text, parseFloat(text1));
           expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
           expenseList[expenseList.length] = { id: nextId++, text: text, cost: parseFloat(text1), category: category, done: false };
           sessionStorage.setItem("initialExpenses", JSON.stringify(expenseList));

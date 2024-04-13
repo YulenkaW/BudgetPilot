@@ -8,9 +8,9 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const ExpenseTracker = () => {
     
     const initialExpenses = [
-        { id: 1, description: 'Groceries', amount: 50 },
+        /*{ id: 1, description: 'Groceries', amount: 50 },
         { id: 2, description: 'Utilities', amount: 75 },
-        { id: 3, description: 'Entertainment', amount: 30 },
+        { id: 3, description: 'Entertainment', amount: 30 },*/
     ];
 
     const [expenses, setExpenses] = useState(initialExpenses);
@@ -30,7 +30,9 @@ const ExpenseTracker = () => {
             labels: ['Food', 'Transportation', 'Entertainment', 'Utilities', 'Others', 'Savings'],
             datasets: [
                 {
-                data: [parseFloat(sessionStorage.getItem("Food")), parseFloat(sessionStorage.getItem("Transportation")), parseFloat(sessionStorage.getItem("Entertainment")), parseFloat(sessionStorage.getItem("Utilities")), parseFloat(sessionStorage.getItem("Others")), parseFloat(sessionStorage.getItem("balance"))],
+                data: [parseFloat(sessionStorage.getItem("Food")), parseFloat(sessionStorage.getItem("Transportation")),
+                parseFloat(sessionStorage.getItem("Entertainment")), parseFloat(sessionStorage.getItem("Utilities")),
+                parseFloat(sessionStorage.getItem("Others")), Math.max(0,parseFloat(sessionStorage.getItem("balance")))],
                 backgroundColor: [
                     'rgba(40, 74, 110, 0.6)', // Deep Blue
                     'rgba(177, 143, 255, 0.6)', // Light Lavender
@@ -84,10 +86,10 @@ const ExpenseTracker = () => {
                 </tr>
             </table>
             </div>
-            {(sessionStorage.getItem("balance") / sessionStorage.getItem("budget")) < 0.2 && sessionStorage.getItem("balance") > 0 &&
-              <p1 style={{color: "orange"}}> You should try to save more money. </p1> }
+            {(sessionStorage.getItem("balance") / sessionStorage.getItem("budget")) < 0.2 && 0 <= sessionStorage.getItem("balance") &&
+              <p1 style={{color: "orangered"}}> You should try to save more money. </p1> }
             {sessionStorage.getItem("balance") < 0 &&
-              <p1 style={{color: "red"}}> You have exceeded your budget. </p1> }
+              <p1 style={{color: "firebrick", fontWeight: "bold"}}> You have exceeded your budget. </p1> }
             <ul>
                 {expenses.map(expense => (
                     <li key={expense.id}>
