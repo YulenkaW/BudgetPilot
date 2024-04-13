@@ -62,9 +62,9 @@ function Expense({ expense }) {
 
   const handleDelete = () => {
     //Add the cost back to the balance
-    sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(expense.cost));
+    sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(sessionStorage.getItem(expense.text)));
     //Subtract the cost from the category total
-    sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(expense.cost));
+    sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(sessionStorage.getItem(expense.text)));
     //Update the expense list
     let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"));
     const updatedExpenses = expenseList.filter(item => item.id !== expense.id);
