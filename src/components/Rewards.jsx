@@ -71,6 +71,7 @@ const Rewards = () => {
       <h2>Rewards</h2>
       {!showResult ? (
         <div>
+          <hr style={{ borderTop: '1px solid #ccc', marginBottom: '20px' }} /> {/* Border line */}
           <p>Test your financial knowledge with this quiz!</p>
           <p>Earn points to redeem gift cards!</p>
           <hr style={{ borderTop: '1px solid #ccc', marginBottom: '20px' }} /> {/* Border line */}
