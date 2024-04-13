@@ -33,17 +33,17 @@ button {
 }
 
 a:link {
-  color: #284a6e;
+  color: #0098fd;
   background-color: transparent;
   text-decoration: none;
 }
 a:visited {
-  color: rgb(132, 0, 255);
+  color: rgb(99, 0, 192);
   background-color: transparent;
   text-decoration: none;
 }
 a:hover {
-  color: #284a6e;
+  color: #00d9ff;
   background-color: transparent;
   text-decoration: none;
 }
