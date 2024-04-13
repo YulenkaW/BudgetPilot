@@ -73,6 +73,7 @@ const Rewards = () => {
         <div>
           <p>Test your financial knowledge with this quiz!</p>
           <p>Earn points to redeem gift cards!</p>
+          <hr style={{ borderTop: '1px solid #ccc', marginBottom: '20px' }} /> {/* Border line */}
           <ol>
             {questions.map((q, index) => (
               <li key={index}>
