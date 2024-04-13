@@ -61,12 +61,17 @@ function Expense({ expense }) {
   }
 
   const handleDelete = () => {
-    //Add the cost back to the balance
-    sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(sessionStorage.getItem(expense.text)));
-    //Subtract the cost from the category total
-    sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(sessionStorage.getItem(expense.text)));
     //Update the expense list
     let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"));
+    for (let x in expenseList) {
+      if (expenseList[x]["id"] == expense.id) {
+        //Add the cost back to the balance
+        sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(expenseList[x]["cost"]));
+        //Subtract the cost from the category total
+        sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(expenseList[x]["cost"]));
+        break;
+      }
+    }
     const updatedExpenses = expenseList.filter(item => item.id !== expense.id);
     sessionStorage.setItem("initialExpenses", JSON.stringify(updatedExpenses));
     dispatch({ type: 'deleted', id: expense.id });
@@ -103,7 +108,7 @@ function Expense({ expense }) {
             let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
             for (let x in expenseList) {
                 if (expenseList[x]["id"] == expense.id) {
-                  //Aet the stored cost with the new name
+                  //Get the stored cost with the new name
                   sessionStorage.removeItem(expenseList[x]["text"]);
                   sessionStorage.setItem(expense.text, expense.cost);
                   //Assign the new name
