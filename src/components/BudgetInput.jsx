@@ -1,4 +1,4 @@
-// Assuming the file is located at src/components/BudgetInput.jsx
+
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,7 +29,7 @@ function BudgetInput() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        toast.success(`Your budget is set to: $${budget} and salary is set to: $${salary}`, //{ position: toast.POSITION.TOP_CENTER }
+        toast.success(`Your budget is set to: $${budget} and salary is set to: $${salary}`, 
     );
     };
 
@@ -57,7 +57,8 @@ function BudgetInput() {
                         placeholder="Enter your salary"
                     />
                 </div>
-                <button type="submit">Set Budget and Salary</button>
+                <button type="submit" className="blue-button">Set Budget and Salary</button>
+
             </form>
             <p>Your current budget is: ${budget}</p>
             <p>Your current salary is: ${salary}</p>

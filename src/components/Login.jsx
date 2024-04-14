@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+
+
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -63,7 +65,7 @@ function Login({ onLogin }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Register</button>
+          <button type="submit" className="blue-button login-button">Register</button>
         </form>
       )}
       {!isNewUser && (
@@ -82,18 +84,19 @@ function Login({ onLogin }) {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button onClick={handleLogin}>Login</button>
+          <button onClick={handleLogin} className="blue-button login-button">Login</button>
+
         </>
       )}
       {!isNewUser ? (
         <p>
           Don't have an account?{' '}
-          <span onClick={() => setIsNewUser(true)}>Register here</span>
+          <span onClick={() => setIsNewUser(true)}><strong>Register here</strong></span>
         </p>
       ) : (
         <p>
           Already have an account?{' '}
-          <span onClick={() => setIsNewUser(false)}>Login here</span>
+            <span onClick={() => setIsNewUser(false)}><strong>Login here</strong></span>
         </p>
       )}
     </div>

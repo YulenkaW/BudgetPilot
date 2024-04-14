@@ -10,6 +10,19 @@ export default function AddExpense({ onAddExpense }) {
   const dispatch = useExpensesDispatch();
   const [category, setCategory] = useState("");
   const navigate = useNavigate()
+  // Retrieve the initial list of expenses or initialize if not present
+  const initialExpenses = JSON.parse(sessionStorage.getItem("initialExpenses") || "[]");
+  const [expenses, setExpenses] = useState(initialExpenses);
+  let nextId = expenses.length > 0 ? Math.max(...expenses.map(exp => exp.id)) + 1 : 0;
+
+  const addExpense = (newExpenseAmount) => {
+    const currentTotalExpenses = parseFloat(sessionStorage.getItem("totalExpenses") || 0);
+    const updatedTotalExpenses = currentTotalExpenses + parseFloat(newExpenseAmount);
+    sessionStorage.setItem("totalExpenses", updatedTotalExpenses.toString());
+  };
+
+  addExpense(text1);
+
   const softRefreshPage = () => {
     navigate("/refresh");
     navigate(-1);
@@ -18,10 +31,22 @@ export default function AddExpense({ onAddExpense }) {
   const handleChange = (e) => {
     setCategory(e.target.value)
   }
+  
+
+  const inputStyle = {
+    width: '100%', 
+    padding: '15px 10px', 
+    fontSize: '16px', 
+    margin: '5px 0',
+    boxSizing: 'border-box', 
+  };
+
+
+
   return (
     <>
       <form>
-        <select value={category} onChange={handleChange}>
+        <select value={category} onChange={handleChange} style={inputStyle}>
           <option value="">Choose a category</option>
           <option value="Food">Food</option>
           <option value="Transportation">Transportation</option>
@@ -30,17 +55,19 @@ export default function AddExpense({ onAddExpense }) {
           <option value="Others">Others</option>
         </select>
       </form>
-      <input
+      <input className="large-input"
         placeholder="Expense Name"
         value={text}
         onChange={e => setText(e.target.value)}
       />
-      <input
+      <input className="large-input"
         placeholder="Expense Amount"
         value={text1}
         type="number"
         onChange={f => setText1(f.target.value)}
       />
+
+      
       <button onClick={() => {
         //if category is not selected
         if (category == "") {
@@ -69,7 +96,6 @@ export default function AddExpense({ onAddExpense }) {
             cost: parseFloat(text1),
             category: category,
           });
-          //Add expense to list
           sessionStorage.setItem(text, parseFloat(text1));
           expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
           expenseList[expenseList.length] = { id: nextId++, text: text, cost: parseFloat(text1), category: category, done: false };

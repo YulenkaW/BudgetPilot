@@ -28,11 +28,11 @@
 }
 
 .button-container button {
-
-  gap: 10px;
-  margin: 40px  30px ;
+   justify-content: center;     
+  gap: 5px;
+  margin: 20px  10px ;
   padding: 10px 20px;
-  font-size: 32px;
+  font-size: 28px;
   color: #284a6e;
   background-color: #f8f8f8;
   border: 2px solid transparent;
@@ -48,6 +48,33 @@
   transform: scale(1.05);  
 }
 
+.blue-button {
+  background-color: #284a6e;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 38px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, transform 0.3s, border-color 0.3s;
+  cursor: pointer;
+  outline: none;
+  border-radius: 4px;
+}
+
+.blue-button:hover {
+  background-color: #1e3550;
+  transform: scale(1.05);
+  border-color: #ffffff;
+}
+
+.large-input {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
 .input-group input[type="number"] {
   width: 30%;  
   padding: 10px;  
@@ -57,6 +84,18 @@
   box-sizing: border-box;  
 }
 
+.login-button {
+  padding: 8px 16px; 
+  margin-left: 10px;
+  font-size: 28px; 
+  border-radius: 10px; 
+  transition: background-color 0.3s, transform 0.3s; 
+}
+
+.login-button:hover {
+  background-color: #1e3550; 
+  transform: scale(1.03); 
+}
 
 .App-link {
   color: #61dafb;

@@ -43,7 +43,7 @@ function App() {
               </h1>
                 <div className="button-container">
                   <Link to="/budget-input">
-                    <button>Budget Input</button>
+                    <button >Budget Input</button>
                   </Link>
                   <Link to="/add-expense">
                     <button>Add Expense</button>
