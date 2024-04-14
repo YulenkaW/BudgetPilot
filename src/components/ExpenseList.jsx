@@ -158,14 +158,13 @@ function Expense({ expense }) {
         }
         else {
           setIsEditingCost(false);
-          let originalCost = parseFloat(sessionStorage.getItem(expense.text))
-          //Add the original cost back to the balance and subtract the new cost
-          sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(originalCost) - (parseFloat(expense.cost)));
-          //Subtract the original cost from the category total and add the new one
-          sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(originalCost) + (parseFloat(expense.cost)));
           let expenseList = JSON.parse(sessionStorage.getItem("initialExpenses"))
           for (let x in expenseList) {
               if (expenseList[x]["id"] == expense.id) {
+                //Add the original cost back to the balance and subtract the new cost
+                sessionStorage.setItem("balance", parseFloat(sessionStorage.getItem("balance")) + parseFloat(expenseList[x]["cost"]) - (parseFloat(expense.cost)));
+                //Subtract the original cost from the category total and add the new one
+                sessionStorage.setItem(expense.category, parseFloat(sessionStorage.getItem(expense.category)) - parseFloat(expenseList[x]["cost"]) + (parseFloat(expense.cost)));
                 expenseList[x]["cost"] = expense.cost;
                 break;
               }
