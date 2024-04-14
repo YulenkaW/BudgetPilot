@@ -9,33 +9,23 @@ function BudgetInput() {
         return savedBudget ? Number(savedBudget) : 0;
     });
 
-    const [salary, setSalary] = useState(() => {
-        const savedSalary = sessionStorage.getItem("salary");
-        return savedSalary ? Number(savedSalary) : 0;
-    });
-
     useEffect(() => {
         sessionStorage.setItem("budget", budget);
-        sessionStorage.setItem("salary", salary);
-    }, [budget, salary]);
+    }, [budget]);
 
     const handleBudgetChange = (e) => {
         setBudget(Number(e.target.value));
     };
 
-    const handleSalaryChange = (e) => {
-        setSalary(Number(e.target.value));
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        toast.success(`Your budget is set to: $${budget} and salary is set to: $${salary}`, 
+        toast.success(`Your budget is set to: $${budget}. You should try to spend $${budget*0.8} or less.`, 
     );
     };
 
     return (
         <div>
-            <h2>Enter Your Monthly Budget and Salary</h2>
+            <h2>Enter Your Monthly Budget</h2>
             <form onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="budgetInput">Monthly Budget:</label>
@@ -47,21 +37,10 @@ function BudgetInput() {
                         placeholder="Enter your budget"
                     />
                 </div>
-                <div className="input-group">
-                    <label htmlFor="salaryInput">Monthly Salary:</label>
-                    <input
-                        type="number"
-                        id="salaryInput"
-                        value={salary}
-                        onChange={handleSalaryChange}
-                        placeholder="Enter your salary"
-                    />
-                </div>
-                <button type="submit" className="blue-button">Set Budget and Salary</button>
+                <button type="submit" className="blue-button">Set Budget</button>
 
             </form>
-            <p>Your current budget is: ${budget}</p>
-            <p>Your current salary is: ${salary}</p>
+            <p>Your current budget: ${budget}</p>
             <ToastContainer />
         </div>
     );

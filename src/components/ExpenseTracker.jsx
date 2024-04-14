@@ -7,7 +7,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const ExpenseTracker = () => {
     const [expenses, setExpenses] = useState([]);
 
-    const salary = parseFloat(sessionStorage.getItem("salary") || 0);
     const budget = parseFloat(sessionStorage.getItem("budget") || 0);
 
     const totalExpenses = ["Food", "Transportation", "Entertainment", "Utilities", "Others"]
@@ -25,31 +24,8 @@ const ExpenseTracker = () => {
     return (
         <div>
             <h2>Expense Tracker</h2>
-            <div style={{
-                position: 'absolute', //drawing fun picture
-                right: '20px', 
-                top: '30%', 
-                transform: 'translateY(-50%)', 
-                background: 'linear-gradient(25deg, #1e5799 0%,#256ec6 50%,#2989d8 75%, #7db9e8 100%)', 
-                borderRadius: '15px', 
-                padding: '20px 40px', 
-                boxShadow: '0 4px 8px rgba(0,0,0,0.5)', 
-                color: '#fff', 
-                fontWeight: 'bold', 
-                textAlign: 'center', 
-                minWidth: '250px', 
-                fontSize: '18px', 
-                display: 'flex', 
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 10, 
-                letterSpacing: '2px' 
-            }}>
-                Your salary is: ${salary.toFixed(2)}
-            </div>
-            
-            <p>Your budget is:<strong>${budget.toFixed(2)}</strong> </p>
-            <p>Was spent: <strong>${totalExpenses.toFixed(2)}</strong></p>
+            <p>Your budget:<strong>${budget.toFixed(2)}</strong> </p>
+            <p>Money spent: <strong>${totalExpenses.toFixed(2)}</strong></p>
             <div id="CategoriesPieChart">
                 <div style={{ height: "40vh", position: "relative", marginBottom: "1%", padding: "1%" }}>
                     <Pie data={{
@@ -92,12 +68,12 @@ const ExpenseTracker = () => {
                     </tr>
                     {["Food", "Transportation", "Entertainment", "Utilities", "Others"].map(category => (
                         <tr key={category}>
-                            <td>{category}</td>
+                            <td>{category}:</td>
                             <td>${parseFloat(sessionStorage.getItem(category) || 0).toFixed(2)}</td>
                         </tr>
                     ))}
                     <tr>
-                        <th>Savings</th>
+                        <th>Savings:</th>
                         <td>${savings.toFixed(2)}</td>
                     </tr>
                 </table>
