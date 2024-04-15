@@ -1,17 +1,73 @@
 Upload the files from the repository.
 in terminal press: 
+nvm install 21.7.3
+
+
 npm install
 to activate node modules.
 
+
+
+
+npm install react-toastify 
+
+npm install chart.js react-chartjs-2 
+
+npm start 
+
+checked on LocalHost 3000
+
+Requirements:
 (node version 21.7.3),
 "react": "^18.2.0".
 
+
+Deployment script: 
+#!/bin/bash
+
+# Check if nvm is installed
+if ! command -v nvm &> /dev/null
+then
+    echo "nvm could not be found. Please install it first."
+    exit
+fi
+
+# Install the correct version of Node.js (replace with the correct version)
+nvm install 21.7.3
+
+# Activate the specified version of Node
+nvm use 21.7.3
+
+# Install npm dependencies
+npm install
+
+# Install additional npm packages
 npm install react-toastify
 npm install chart.js react-chartjs-2
-npm start
-checked on LocalHost 3000
 
+# Start the application
+npm start &
 
+# Wait for a few seconds to give npm start a chance to boot up
+sleep 5
+
+# Check if the application is running on LocalHost:3000
+if curl -s http://localhost:3000 > /dev/null
+then
+    echo "Application is up and running on LocalHost:3000"
+else
+    echo "Application failed to start on LocalHost:3000"
+fi
+
+# The script will keep the npm process running in the background
+# To check the logs, use the command `npm run logs`
+# To stop the application, you can use `npm stop` or kill the process
+
+To use this script:
+
+Copy the script into a file, let's call it deploy.sh.
+Make the script executable with chmod +x deploy.sh.
+Run the script with ./deploy.sh.
 
 
 
