@@ -80,11 +80,11 @@ export default function AddExpense({ onAddExpense }) {
         }
         //if expense amount is not specified
         else if (text1 == "") {
-          toast.error("Expense amount must be filled out with a number", { position: toast.POSITION.TOP_CENTER });
+          toast.error("Expense amount must be filled out with a number")//, { position: toast.POSITION.TOP_CENTER });
         }
         //if expense amount is invalid
         else if (text1 <= 0) {
-          toast.error("Expense amount must above 0", { position: toast.POSITION.TOP_CENTER });
+          toast.error("Expense amount must above 0")//, { position: toast.POSITION.TOP_CENTER });
         }
         else {
           setText('');

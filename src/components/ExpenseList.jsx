@@ -101,7 +101,7 @@ function Expense({ expense }) {
         <button onClick={() => {
           //If expense is not named
           if (expense.text == "") {
-            toast.error("Expense name must be filled out", { position: toast.POSITION.TOP_CENTER });
+            toast.error("Expense name must be filled out")//, { position: toast.POSITION.TOP_CENTER });
           }
           else {
             setIsEditingText(false);
@@ -150,11 +150,11 @@ function Expense({ expense }) {
         <button onClick={() => {
         //if expense amount is not specified
         if (expense.cost == "") {
-          toast.error("Expense amount must be filled out with a number", { position: toast.POSITION.TOP_CENTER });
+          toast.error("Expense amount must be filled out with a number")//, { position: toast.POSITION.TOP_CENTER });
         }
         //if expense amount is invalid
         else if (parseFloat(expense.cost) <= 0) {
-          toast.error("Expense amount must above 0", { position: toast.POSITION.TOP_CENTER });
+          toast.error("Expense amount must above 0")//, { position: toast.POSITION.TOP_CENTER });
         }
         else {
           setIsEditingCost(false);
