@@ -1,10 +1,16 @@
-URL to connect to fetch api or axios api to interact with REST api :
+Upload the files from the repository.
+in terminal press: 
+npm install
+to activate node modules.
 
-http://localhost:3000/api/expenses
+(node version 21.7.3),
+"react": "^18.2.0".
 
-Example json object body to use for POST :
+npm install react-toastify
+npm install chart.js react-chartjs-2
+npm start
+checked on LocalHost 3000
 
-{"userId": "1234", "Description": "test des", "category": "test cat", "amount": 12, "budgetId": "12" }
 
 
 
