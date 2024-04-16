@@ -28,9 +28,14 @@ const MonthlyReport = () => {
                 </tr>
                 <tr>
                     <td>Status:</td>
-                    <td style={{ color: (expenses > budget || expenses > budget) ? '#b22222' : '#28a745', fontWeight: 'bold' }}>
-                        {expenses > budget ? "Over budget" : expenses > budget ? "You spent more than your budget" : "Within budget"}
+                    <td style={{ color: expenses >= budget ? '#b22222' : (expenses >= budget * 0.8 ? '#ffd700' : '#28a745'), fontWeight: 'bold' }}>
+                        {expenses > budget
+                            ? "You are in financial struggle"
+                            : (expenses >= budget * 0.8
+                                ? "You are above the rational spending"
+                                : "You are within the budget")}
                     </td>
+
                 </tr>
             </table>
         </div>
